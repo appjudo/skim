@@ -8,7 +8,7 @@ module Skim
     use Slim::Parser, :file, :tabsize, :encoding, :default_tag
     use Slim::EmbeddedEngine, :enable_engines, :disable_engines, :pretty
     use Slim::Interpolation
-    use Slim::Sections, :sections, :dictionary, :dictionary_access
+    use Skim::Sections, :sections
     use Skim::Compiler, :disable_capture, :attr_delimiter
     use Temple::CoffeeScript::AttributeMerger, :attr_delimiter
     use Temple::HTML::AttributeSorter

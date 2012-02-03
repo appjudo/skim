@@ -14,26 +14,42 @@ class TestSkim < MiniTest::Unit::TestCase
     @env = CoffeeScript.compile(env_source, :bare => true)
   end
 
+  def env(options)
+    if options[:scope]
+      MultiJson.encode(options[:scope])
+    else
+      "new Env()"
+    end
+  end
+
   def compile(source, options = {})
     Skim::Template.new(options[:file], options) { source }.render
   end
 
-  def evaluate(source, prelude = nil, options = {})
+  def evaluate(source, options = {})
     require "execjs"
     code = [
-      prelude,
+      @env,
+      "var env = #{env(options)}",
       "var template = #{compile(source, options)}",
-      "var evaluate = function () { return template(new Env()); }"
+      "var evaluate = function () { return template(env); }"
     ]
     context = ExecJS.compile(code.join(";"))
     context.call("evaluate")
   end
 
   def render(source, options = {})
-    evaluate(source, options[:scope] || @env, options)
+    evaluate(source, options)
   end
 
   def assert_html(expected, source, options = {}, &block)
     assert_equal expected, render(source, options, &block)
+  end
+
+  def assert_runtime_error(message, source, options = {})
+    render(source, options)
+    raise Exception, 'Runtime error expected'
+  rescue RuntimeError => ex
+    assert_equal message, ex.message
   end
 end

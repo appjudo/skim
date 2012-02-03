@@ -30,8 +30,6 @@ Order up a skinny latte and enjoy!
 
 Skim is an early proof-of-concept. Some Slim features are still missing:
 
-* Skim does not currently support Slim's logic-less (sections) mode. This is a high priority however, as logic-less
-  templates could simultaneously be Slim templates server-side and Skim templates client-side.
 * Skim does not currently support embedded engines. Being a client-side templating languages, it will only be able to
   support embedded engines with a client-side implementation.
 * Skim does not currently support HTML pretty-printing (Slim's `:pretty` option). This is low priority, as
@@ -50,6 +48,7 @@ Skim supports the following Slim language features:
 * string interpolation, escaped and not (`#{}` and `#{{}}`)
 * id and class attribute shortcuts (`#` and `.`)
 * attribute and attribute value wrappers
+* logic-less (sections) mode
 
 Several Coffee/JavaScript considerations are specific to Skim:
 

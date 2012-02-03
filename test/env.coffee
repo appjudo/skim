@@ -49,3 +49,26 @@ class Env
 
   succ_x: ->
     @x = @x + 1
+
+  person: ->
+    [{name: 'Joe'}, {name: 'Jack'}]
+
+  people: ->
+    ['Andy', 'Fred', 'Daniel'].map (n) -> new Person(n)
+
+  cities: ->
+    ['Atlanta', 'Melbourne', 'Karlsruhe']
+
+  people_with_locations: ->
+    @people().map (p, i) =>
+      p.location = new Location(@cities()[i])
+      p
+
+class Person
+  constructor: (@_name) ->
+  name: => @_name
+  city: => @location.city()
+
+class Location
+  constructor: (@_city) ->
+  city: => @_city
