@@ -15,6 +15,13 @@ module Skim
     return value
 
   _withContext = (context, block) ->
+    create = (o) ->
+      F = ->
+      F.prototype = o
+      new F
+
+    context = create(context)
+
     context.safe ||= @safe || (value) ->
       return value if value?.skimSafe
       result = new String(value ? '')
@@ -30,6 +37,7 @@ module Skim
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/\\//g,'&#47;')
+
     block.call(context)
 
   _withContext.call {}, context, ->

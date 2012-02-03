@@ -146,4 +146,12 @@ a href=output_number Link
   def test_empty_object_inverted_section
     assert_html "", INVERTED_SECTION, :scope => {:test => {}}, :sections => true
   end
+
+  def test_doesnt_modify_context
+    source = %q{
+- constant_object
+= constant_object_size
+}
+    assert_html '2', source, :sections => true
+  end
 end

@@ -64,6 +64,14 @@ class Env
       p.location = new Location(@cities()[i])
       p
 
+  constant_object: ->
+    @_constant_object ||= {a: 1, b: 2}
+
+  constant_object_size: ->
+    i = 0
+    i++ for k, v of @constant_object()
+    i
+
 class Person
   constructor: (@_name) ->
   name: => @_name
