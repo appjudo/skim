@@ -20,13 +20,13 @@ module Skim
       tmp1, tmp2 = unique_name, unique_name
       [:if, "#{tmp1} = #{access(name)}",
        [:block, "for #{tmp2} in #{tmp1}",
-        [:block, "_withContext.call @, #{tmp2}, ->", compile(content)]]]
+        [:block, "Skim.withContext.call @, #{tmp2}, ->", compile(content)]]]
     end
 
     private
 
     def access(name)
-      "_access.call(@, #{MultiJson.encode(name.to_s)})"
+      "Skim.access.call(@, #{MultiJson.encode(name.to_s)})"
     end
   end
 end
