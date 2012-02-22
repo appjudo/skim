@@ -3,7 +3,8 @@ module Skim
     set_default_options :pretty => false,
                         :attr_wrapper => '"',
                         :attr_delimiter => {'class' => ' '},
-                        :generator => Temple::CoffeeScript::Generator
+                        :generator => Temple::CoffeeScript::Generator,
+                        :use_asset => false
 
     use Slim::Parser, :file, :tabsize, :encoding, :default_tag
     use Slim::EmbeddedEngine, :enable_engines, :disable_engines, :pretty

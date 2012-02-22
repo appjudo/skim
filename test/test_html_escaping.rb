@@ -6,7 +6,9 @@ class TestSkimHtmlEscaping < TestSkim
 p <Hello> World, meet "Skim".
 }
 
-    assert_html '<p><Hello> World, meet "Skim".</p>', source
+    with_and_without_asset do |opts|
+      assert_html '<p><Hello> World, meet "Skim".</p>', source, opts
+    end
   end
 
   def test_html_with_newline_will_not_be_escaped
@@ -17,7 +19,9 @@ p
      meet "Skim".
 }
 
-    assert_html "<p><Hello> World,\n meet \"Skim\".</p>", source
+    with_and_without_asset do |opts|
+      assert_html "<p><Hello> World,\n meet \"Skim\".</p>", source, opts
+    end
   end
 
   def test_html_with_escaped_interpolation
@@ -27,7 +31,9 @@ p
 p class="#{x}" test #{content}
 }
 
-    assert_html '<p class="&quot;">test &lt;x&gt;</p>', source
+    with_and_without_asset do |opts|
+      assert_html '<p class="&quot;">test &lt;x&gt;</p>', source, opts
+    end
   end
 
   def test_html_nested_escaping
@@ -35,6 +41,8 @@ p class="#{x}" test #{content}
 = @callback "Test", ->
   | escaped &
 }
-    assert_html 'Test escaped &amp; Test', source
+    with_and_without_asset do |opts|
+      assert_html 'Test escaped &amp; Test', source, opts
+    end
   end
 end

@@ -34,6 +34,9 @@ class TestSkim < MiniTest::Unit::TestCase
       "var template = #{compile(source, options)}",
       "var evaluate = function () { return template(env); }"
     ]
+    if options[:use_asset]
+      code.unshift CoffeeScript.compile(Skim::Template.skim_src)
+    end
     context = ExecJS.compile(code.join(";"))
     context.call("evaluate")
   end
@@ -44,6 +47,12 @@ class TestSkim < MiniTest::Unit::TestCase
 
   def assert_html(expected, source, options = {}, &block)
     assert_equal expected, render(source, options, &block)
+  end
+
+  def with_and_without_asset &block
+    [true, false].each do |use_asset|
+      yield :use_asset => use_asset  
+    end
   end
 
   def assert_runtime_error(message, source, options = {})
