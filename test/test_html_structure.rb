@@ -282,6 +282,8 @@ p(id="marvin" class="" data-info="Illudium Q-36")= @output_number()
   end
 
   def test_dynamic_empty_attribute
+    skip "pending"
+
     source = %q{
 p(id="marvin" class=null other_empty=("") data-info="Illudium Q-36")= @output_number()
 }

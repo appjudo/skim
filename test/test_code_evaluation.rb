@@ -202,6 +202,8 @@ p id="#{(if false then 'notshown' else 'shown')}" = @output_number()
   end
 
   def test_class_attribute_merging_with_null
+    skip "pending"
+
     source = %{
 .alpha class="beta" class=null class="gamma" Test it
 }
@@ -272,6 +274,8 @@ option(selected class="clazz") Text
   end
 
   def test_array_attribute
+    skip "pending"
+
     source = %{
 .alpha class="beta" class=['gamma', null, 'delta', [true, false]]
 }
