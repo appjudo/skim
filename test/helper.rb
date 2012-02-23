@@ -1,7 +1,16 @@
 require "rubygems"
 require "minitest/unit"
+require "minitest/reporters"
 require "skim"
 require "coffee_script"
+
+MiniTest::Unit.runner = MiniTest::SuiteRunner.new
+MiniTest::Unit.runner.reporters <<
+  if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
+    MiniTest::Reporters::RubyMineReporter.new
+  else
+    MiniTest::Reporters::ProgressReporter.new
+  end
 
 MiniTest::Unit.autorun
 
@@ -23,7 +32,7 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def compile(source, options = {})
-    Skim::Template.new(options[:file], options) { source }.render
+    Skim::Template.new(options[:file], options) { source }.render(options[:scope] || Env.new)
   end
 
   def evaluate(source, options = {})
@@ -65,5 +74,16 @@ class TestSkim < MiniTest::Unit::TestCase
     raise Exception, 'Runtime error expected'
   rescue RuntimeError => ex
     assert_equal message, ex.message
+  end
+end
+
+class Env
+  def hello_world(text = "Hello World from @env", opts = {})
+    text << opts.to_a * " " if opts.any?
+    if block_given?
+      "#{text} #{yield} #{text}"
+    else
+      text
+    end
   end
 end
