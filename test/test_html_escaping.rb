@@ -6,8 +6,8 @@ class TestSkimHtmlEscaping < TestSkim
 p <Hello> World, meet "Skim".
 }
 
-    with_and_without_asset do |opts|
-      assert_html '<p><Hello> World, meet "Skim".</p>', source, opts
+    with_and_without_asset do
+      assert_html '<p><Hello> World, meet "Skim".</p>', source
     end
   end
 
@@ -19,8 +19,8 @@ p
      meet "Skim".
 }
 
-    with_and_without_asset do |opts|
-      assert_html "<p><Hello> World,\n meet \"Skim\".</p>", source, opts
+    with_and_without_asset do
+      assert_html "<p><Hello> World,\n meet \"Skim\".</p>", source
     end
   end
 
@@ -31,8 +31,8 @@ p
 p class="#{x}" test #{content}
 }
 
-    with_and_without_asset do |opts|
-      assert_html '<p class="&quot;">test &lt;x&gt;</p>', source, opts
+    with_and_without_asset do
+      assert_html '<p class="&quot;">test &lt;x&gt;</p>', source
     end
   end
 
@@ -41,8 +41,8 @@ p class="#{x}" test #{content}
 = @callback "Test", ->
   | escaped &
 }
-    with_and_without_asset do |opts|
-      assert_html 'Test escaped &amp; Test', source, opts
+    with_and_without_asset do
+      assert_html 'Test escaped &amp; Test', source
     end
   end
 end

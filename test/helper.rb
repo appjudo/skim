@@ -34,7 +34,7 @@ class TestSkim < MiniTest::Unit::TestCase
       "var template = #{compile(source, options)}",
       "var evaluate = function () { return template(env); }"
     ]
-    if options[:use_asset]
+    if Skim::Engine.default_options[:use_asset]
       code.unshift CoffeeScript.compile(Skim::Template.skim_src)
     end
     context = ExecJS.compile(code.join(";"))
@@ -50,8 +50,13 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def with_and_without_asset
-    [true, false].each do |use_asset|
-      yield :use_asset => use_asset
+    yield
+
+    begin
+      Skim::Engine.default_options[:use_asset] = true
+      yield
+    ensure
+      Skim::Engine.default_options[:use_asset] = false
     end
   end
 
