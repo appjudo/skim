@@ -84,6 +84,20 @@ to produce:
 
     <a href='/projects/4'>Crate &amp; Barrel</a>
 
+## The Skim asset
+
+By default, all you need to do to start using Skim is add it to your Gemfile. Skim will embed a small amount of
+supporting code in each generated template asset. You can remove this duplication by manually including Skim's asset,
+and setting Skim's `:use_asset` option to true.
+
+In Rails, this can be done by adding the following to `application.js`:
+
+    //= require skim
+
+And the following in an initializer:
+
+    Skim::Engine.default_options[:use_asset] = true
+
 # License (MIT)
 
 Copyright (c) 2012 John Firebaugh
