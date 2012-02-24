@@ -9,10 +9,10 @@ this.Skim =
     return value
 
   safe: (value) ->
-      return value if value?.skimSafe
-      result = new String(value ? '')
-      result.skimSafe = true
-      result
+    return value if value?.skimSafe
+    result = new String(value ? '')
+    result.skimSafe = true
+    result
 
   escape: (string) ->
     return '' unless string?
