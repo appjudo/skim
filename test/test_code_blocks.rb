@@ -66,6 +66,16 @@ p
     assert_html '<p>Hey!Hey!Hey!</p>', source
   end
 
+  def test_render_with_control_code_for_own_of_loop
+    source = %q{
+p
+  - for own key, value of {user: 'name'}
+    | #{user} #{name}
+}
+
+    assert_html '<p>user name</p>', source
+  end
+
   def test_captured_code_block_with_conditional
     source = %q{
 = @callback "Hello Ruby!", ->
