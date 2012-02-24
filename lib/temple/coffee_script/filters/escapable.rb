@@ -26,7 +26,7 @@ module Temple
         end
 
         def on_dynamic(value)
-          [:dynamic, @escape ? "@escape(#{value})" : value]
+          [:dynamic, @escape ? "Skim.escape(#{value})" : value]
         end
       end
     end

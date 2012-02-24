@@ -19,7 +19,7 @@ p = "<strong>Hello World\\n, meet \\"Skim\\"</strong>."
 
   def test_render_safe
     source = %q{
-p = @safe("<strong>Hello World\\n, meet \\"Skim\\"</strong>.")
+p = Skim.safe("<strong>Hello World\\n, meet \\"Skim\\"</strong>.")
 }
 
     assert_html "<p><strong>Hello World\n, meet \"Skim\"</strong>.</p>", source
