@@ -25,7 +25,7 @@ this.Skim =
     context.escape ||= @escape || (string) ->
       return '' unless string?
       return string if string.skimSafe
-      (''+string)
+      @safe (''+string)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')

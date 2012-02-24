@@ -42,4 +42,28 @@ p = @safe("<strong>Hello World\\n, meet \\"Skim\\"</strong>.")
 
     assert_html "<p>Hello</p><p>World</p>", source, :disable_escape => true
   end
+
+  def test_explicit_escape
+    source = %q{
+= @escape "Crate & Barrel"
+}
+
+    assert_html "Crate &amp; Barrel", source
+  end
+
+  def test_explicit_safe
+    source = %q{
+= @safe "Crate & Barrel"
+}
+
+    assert_html "Crate & Barrel", source
+  end
+
+  def test_user_defined_escape
+    source = %q{
+= "Crate & Barrel"
+}
+
+    assert_html "CRATE & BARREL", source, :context => "{escape: function (value) { return value.toUpperCase(); }}"
+  end
 end

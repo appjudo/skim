@@ -24,10 +24,13 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def context(options)
-    if options[:context]
-      MultiJson.encode(options[:context])
-    else
-      "new Context()"
+    case context = options[:context]
+      when String
+        context
+      when Hash
+        MultiJson.encode(context)
+      else
+        "new Context()"
     end
   end
 
