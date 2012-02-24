@@ -77,8 +77,8 @@ you could render it with the following context:
       project: { id: 4, name: "Crate & Barrel" }
       linkTo: (project) ->
         url  = "/projects/#{project.id}"
-        name = @escape project.name
-        @safe "<a href='#{url}'>#{name}</a>"
+        name = Skim.escape project.name
+        Skim.safe "<a href='#{url}'>#{name}</a>"
 
 to produce:
 

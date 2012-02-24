@@ -19,8 +19,14 @@ module Skim
     def on_slim_section(name, content)
       tmp1, tmp2 = unique_name, unique_name
       [:if, "#{tmp1} = #{access(name)}",
-       [:block, "for #{tmp2} in #{tmp1}",
-        [:block, "Skim.withContext.call @, #{tmp2}, ->", compile(content)]]]
+        [:block, "for #{tmp2} in #{tmp1}",
+          [:multi,
+            [:code, "(->"],
+            [:indent, compile(content)],
+            [:code, ").call(#{tmp2})"]
+          ]
+        ]
+      ]
     end
 
     private
