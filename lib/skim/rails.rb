@@ -1,4 +1,4 @@
 module Skim
-  class Engine < ::Rails::Engine
+  class RailsEngine < ::Rails::Engine
   end
 end
