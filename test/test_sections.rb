@@ -15,7 +15,7 @@ p
       ]
     }
 
-    assert_html '<p><div class="name">Joe</div><div class="name">Jack</div></p>', source, :scope => hash, :sections => true
+    assert_html '<p><div class="name">Joe</div><div class="name">Jack</div></p>', source, :context => hash, :sections => true
   end
 
   def test_flag_section
@@ -36,7 +36,7 @@ p
       ]
     }
 
-    assert_html '<p><div class="name">Joe</div><div class="name">Jack</div>shown</p>', source, :scope => hash, :sections => true
+    assert_html '<p><div class="name">Joe</div><div class="name">Jack</div>shown</p>', source, :context => hash, :sections => true
   end
 
   def test_inverted_section
@@ -52,7 +52,7 @@ p
 
     hash = {}
 
-    assert_html '<p>No person No person 2</p>', source, :scope => hash, :sections => true
+    assert_html '<p>No person No person 2</p>', source, :context => hash, :sections => true
   end
 
   def test_output_with_content
@@ -100,51 +100,51 @@ a href=output_number Link
   SRC
 
   def test_undefined_section
-    assert_html "", SECTION, :scope => {}, :sections => true
+    assert_html "", SECTION, :context => {}, :sections => true
   end
 
   def test_null_section
-    assert_html "", SECTION, :scope => {:test => nil}, :sections => true
+    assert_html "", SECTION, :context => {:test => nil}, :sections => true
   end
 
   def test_false_section
-    assert_html "", SECTION, :scope => {:test => false}, :sections => true
+    assert_html "", SECTION, :context => {:test => false}, :sections => true
   end
 
   def test_empty_string_section
-    assert_html "Test", SECTION, :scope => {:test => ""}, :sections => true
+    assert_html "Test", SECTION, :context => {:test => ""}, :sections => true
   end
 
   def test_empty_array_section
-    assert_html "", SECTION, :scope => {:test => []}, :sections => true
+    assert_html "", SECTION, :context => {:test => []}, :sections => true
   end
 
   def test_empty_object_section
-    assert_html "Test", SECTION, :scope => {:test => {}}, :sections => true
+    assert_html "Test", SECTION, :context => {:test => {}}, :sections => true
   end
 
   def test_undefined_inverted_section
-    assert_html "Test", INVERTED_SECTION, :scope => {}, :sections => true
+    assert_html "Test", INVERTED_SECTION, :context => {}, :sections => true
   end
 
   def test_null_inverted_section
-    assert_html "Test", INVERTED_SECTION, :scope => {:test => nil}, :sections => true
+    assert_html "Test", INVERTED_SECTION, :context => {:test => nil}, :sections => true
   end
 
   def test_false_inverted_section
-    assert_html "Test", INVERTED_SECTION, :scope => {:test => false}, :sections => true
+    assert_html "Test", INVERTED_SECTION, :context => {:test => false}, :sections => true
   end
 
   def test_empty_string_inverted_section
-    assert_html "", INVERTED_SECTION, :scope => {:test => ""}, :sections => true
+    assert_html "", INVERTED_SECTION, :context => {:test => ""}, :sections => true
   end
 
   def test_empty_array_inverted_section
-    assert_html "Test", INVERTED_SECTION, :scope => {:test => []}, :sections => true
+    assert_html "Test", INVERTED_SECTION, :context => {:test => []}, :sections => true
   end
 
   def test_empty_object_inverted_section
-    assert_html "", INVERTED_SECTION, :scope => {:test => {}}, :sections => true
+    assert_html "", INVERTED_SECTION, :context => {:test => {}}, :sections => true
   end
 
   def test_doesnt_modify_context

@@ -1,4 +1,4 @@
-class Env
+class Context
   constructor: ->
     @var = 'instance'
     @x = 0

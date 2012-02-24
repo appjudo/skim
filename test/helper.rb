@@ -15,19 +15,19 @@ MiniTest::Unit.runner.reporters <<
 MiniTest::Unit.autorun
 
 class TestSkim < MiniTest::Unit::TestCase
-  def env_source
-    File.read(File.expand_path("../env.coffee", __FILE__))
+  def context_source
+    File.read(File.expand_path("../context.coffee", __FILE__))
   end
 
   def setup
-    @env = CoffeeScript.compile(env_source, :bare => true)
+    @context = CoffeeScript.compile(context_source, :bare => true)
   end
 
-  def env(options)
-    if options[:scope]
-      MultiJson.encode(options[:scope])
+  def context(options)
+    if options[:context]
+      MultiJson.encode(options[:context])
     else
-      "new Env()"
+      "new Context()"
     end
   end
 
@@ -38,10 +38,10 @@ class TestSkim < MiniTest::Unit::TestCase
   def evaluate(source, options = {})
     require "execjs"
     code = [
-      @env,
-      "var env = #{env(options)}",
+      @context,
+      "var context  = #{context(options)}",
       "var template = #{compile(source, options)}",
-      "var evaluate = function () { return template(env); }"
+      "var evaluate = function () { return template(context); }"
     ]
     if Skim::Engine.default_options[:use_asset]
       code.unshift CoffeeScript.compile(Skim::Template.skim_src)
