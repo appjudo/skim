@@ -70,7 +70,7 @@ p
     source = %q{
 p
   - for own key, value of {user: 'name'}
-    | #{user} #{name}
+    | #{key} #{value}
 }
 
     assert_html '<p>user name</p>', source

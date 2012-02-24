@@ -8,7 +8,7 @@ module Skim
         :file => eval_file,
         :indent => 2 }, options)
       <<SRC
-(context = {}) ->
+return (context = {}) ->
   #{self.class.skim_src unless engine.options[:use_asset]}
   Skim.withContext.call {}, context, ->
 #{engine.call(data)}
@@ -16,7 +16,7 @@ SRC
     end
 
     def prepare
-      @src = CoffeeScript.compile(coffee_script_src, :bare => true)
+      @src = CoffeeScript.compile(coffee_script_src)
     end
 
     def evaluate(scope, locals, &block)
