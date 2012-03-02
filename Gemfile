@@ -1,4 +1,2 @@
-source :rubygems
+source "https://rubygems.org"
 gemspec
-
-gem "temple", :git => "git://github.com/judofyr/temple.git"

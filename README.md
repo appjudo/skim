@@ -7,13 +7,10 @@ Sprockets-based asset pipeline.
 
 # Usage
 
-Add `skim` to your `Gemfile`. You'll have to use a git source, as Skim is too young to have had a gem release! You also
-need to source `temple` from git, as Skim depends on some features of Temple that have been added since the last gem
-release.
+`gem install skim`, or add `skim` to your `Gemfile` in the `:assets` group:
 
     group :assets do
-      gem 'temple', :git => 'git://github.com/judofyr/temple.git'
-      gem 'skim',   :git => 'git://github.com/jfirebaugh/skim.git'
+      gem 'skim'
     end
 
 Create template files with the extension `.jst.skim`. For example, `test.jst.skim`:
