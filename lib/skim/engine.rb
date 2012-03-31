@@ -1,9 +1,12 @@
 module Skim
   class Engine < Temple::Engine
     set_default_options :pretty => false,
+                        :sort_attrs => true,
                         :attr_wrapper => '"',
                         :attr_delimiter => {'class' => ' '},
+                        :remove_empty_attrs => true,
                         :generator => Temple::CoffeeScript::Generator,
+                        :default_tag => 'div',
                         :use_asset => false
 
     use Slim::Parser, :file, :tabsize, :encoding, :default_tag
