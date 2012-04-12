@@ -95,6 +95,12 @@ And the following in an initializer:
 
     Skim::Engine.default_options[:use_asset] = true
 
+# Changelog
+
+### 0.8.2 (April 12, 2012)
+
+* Fixed "Unexpected token return" ([issue #10](https://github.com/jfirebaugh/skim/issues/10))
+
 # License (MIT)
 
 Copyright (c) 2012 John Firebaugh
