@@ -1,5 +1,7 @@
 # master
 
+# 0.8.3
+
 * Fix sprockets integration (#17)
 
 # 0.8.2
