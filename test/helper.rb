@@ -4,13 +4,11 @@ require "minitest/reporters"
 require "skim"
 require "coffee_script"
 
-MiniTest::Unit.runner = MiniTest::SuiteRunner.new
-MiniTest::Unit.runner.reporters <<
-  if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
-    MiniTest::Reporters::RubyMineReporter.new
-  else
-    MiniTest::Reporters::ProgressReporter.new
-  end
+if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
+  MiniTest::Reporters.use! MiniTest::Reporters::RubyMineReporter.new
+else
+  MiniTest::Reporters.use! MiniTest::Reporters::ProgressReporter.new
+end
 
 MiniTest::Unit.autorun
 
