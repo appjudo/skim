@@ -3,6 +3,7 @@ require "minitest/unit"
 require "minitest/reporters"
 require "skim"
 require "coffee_script"
+require "execjs"
 
 if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
   MiniTest::Reporters.use! MiniTest::Reporters::RubyMineReporter.new
@@ -15,6 +16,10 @@ MiniTest::Unit.autorun
 class TestSkim < MiniTest::Unit::TestCase
   def context_source
     File.read(File.expand_path("../context.coffee", __FILE__))
+  end
+
+  def skim_source
+    CoffeeScript.compile(Skim::Template.skim_src)
   end
 
   def setup
@@ -37,7 +42,6 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def evaluate(source, options = {})
-    require "execjs"
     code = [
       @context,
       "var context  = #{context(options)}",
@@ -45,7 +49,7 @@ class TestSkim < MiniTest::Unit::TestCase
       "var evaluate = function () { return template(context); }"
     ]
     if Skim::Engine.default_options[:use_asset]
-      code.unshift CoffeeScript.compile(Skim::Template.skim_src)
+      code.unshift skim_source
     end
     context = ExecJS.compile(code.join(";"))
     context.call("evaluate")

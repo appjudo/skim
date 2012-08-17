@@ -8,8 +8,8 @@ module Skim
         :file => eval_file,
         :indent => 2 }, options)
       <<SRC
+#{self.class.skim_src unless engine.options[:use_asset]}
 return (context = {}) ->
-  #{self.class.skim_src unless engine.options[:use_asset]}
   Skim.withContext.call {}, context, ->
 #{engine.call(data)}
 SRC
