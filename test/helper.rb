@@ -1,6 +1,7 @@
 require "rubygems"
 require "minitest/unit"
 require "minitest/reporters"
+require "temple"; Temple::Filter # Trigger #13
 require "skim"
 require "coffee_script"
 require "execjs"

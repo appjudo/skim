@@ -5,9 +5,9 @@ module Temple
         [:indent, compile(exp)]
       end
     end
+  end
 
-    module Dispatcher
-      include IndentDispatcher
-    end
+  class Filter
+    include Mixins::IndentDispatcher
   end
 end
