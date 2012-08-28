@@ -1,3 +1,5 @@
+require "coffee-script"
+
 module Skim
   Template = Temple::Templates::Tilt(Skim::Engine, :register_as => :skim)
 
