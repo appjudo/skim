@@ -1,5 +1,9 @@
 # master
 
+# 0.8.5
+
+* Compatibility with temple 0.4.1
+
 # 0.8.4
 
 * Fix #13, load order issue with IndentDispatcher
