@@ -4,6 +4,8 @@ module Skim
   Template = Temple::Templates::Tilt(Skim::Engine, :register_as => :skim)
 
   class Template
+    self.default_mime_type = "application/javascript"
+
     def coffee_script_src
       engine = self.class.build_engine({
         :streaming => false, # Overwrite option: No streaming support in Tilt

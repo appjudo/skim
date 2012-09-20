@@ -6,22 +6,27 @@ class TestSkimTemplate < TestSkim
   end
 
   def test_sprockets_integration_without_asset
-    compiled = ExecJS.compile(template_source)
+    compiled = ExecJS.compile(asset_source('test.js'))
     assert_equal "<p>Hello World, meet Skim</p>", compiled.eval("JST.test({name: 'Skim'})")
   end
 
   def test_sprockets_integration_with_asset
     Skim::Engine.default_options[:use_asset] = true
-    compiled = ExecJS.compile(skim_source + ";" + template_source)
+    compiled = ExecJS.compile(skim_source + ";" + asset_source('test.js'))
     assert_equal "<p>Hello World, meet Skim</p>", compiled.eval("JST.test({name: 'Skim'})")
   ensure
     Skim::Engine.default_options[:use_asset] = false
   end
 
+  def test_sprockets_require_directive
+    compiled = ExecJS.compile(asset_source('application.js'))
+    assert_equal "<p>Hello World, meet Skim</p>", compiled.eval("JST.test({name: 'Skim'})")
+  end
+
   private
-  def template_source
+  def asset_source(asset_name)
     env = Sprockets::Environment.new
     env.append_path File.dirname(__FILE__)
-    env['test.js'].to_s
+    env[asset_name].to_s
   end
 end
