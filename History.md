@@ -1,5 +1,9 @@
 # master
 
+# 0.8.6
+
+* Restore compatibility with slim 1.2.2
+
 # 0.8.5
 
 * Compatibility with temple 0.4.1
