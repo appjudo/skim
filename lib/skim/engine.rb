@@ -13,7 +13,8 @@ module Skim
     use Slim::EmbeddedEngine, :enable_engines, :disable_engines, :pretty
     use Slim::Interpolation
     use Skim::Sections, :sections
-    use Skim::Compiler, :disable_capture, :attr_delimiter
+    use Skim::ControlStructures, :disable_capture
+    use Skim::CodeAttributes :attr_delimiter
     use Temple::CoffeeScript::AttributeMerger, :attr_delimiter
     use Temple::HTML::AttributeSorter
     use Temple::CoffeeScript::AttributeRemover
