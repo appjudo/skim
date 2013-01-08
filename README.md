@@ -78,7 +78,7 @@ For example, given the template:
 
 you could render it with the following context:
 
-```jade
+```coffeescript
 JST["my_template"]
   project: { id: 4, name: "Crate & Barrel" }
   linkTo: (project) ->
