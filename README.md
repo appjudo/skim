@@ -9,17 +9,23 @@ Sprockets-based asset pipeline.
 
 `gem install skim`, or add `skim` to your `Gemfile` in the `:assets` group:
 
-    group :assets do
-      gem 'skim'
-    end
+```ruby
+group :assets do
+  gem 'skim'
+end
+```
 
 Create template files with the extension `.jst.skim`. For example, `test.jst.skim`:
 
-    p Hello #{@world}!
+```jade
+p Hello #{@world}!
+```
 
 In your JavaScript or CoffeeScript, render the result, passing a context object:
 
-    $("body").html(JST["test"]({world: "World"}));
+```js
+$("body").html(JST["test"]({world: "World"}));
+```
 
 Order up a skinny latte and enjoy!
 
@@ -66,20 +72,26 @@ escaping. In addition, the special `safe` method on the context object tells Ski
 being escaped. You can use this in conjunction with `escape` context method to selectively sanitize parts of the string.
 For example, given the template:
 
-    = @linkTo(@project)
+```jade
+= @linkTo(@project)
+```
 
 you could render it with the following context:
 
-    JST["my_template"]
-      project: { id: 4, name: "Crate & Barrel" }
-      linkTo: (project) ->
-        url  = "/projects/#{project.id}"
-        name = @escape project.name
-        @safe "<a href='#{url}'>#{name}</a>"
+```jade
+JST["my_template"]
+  project: { id: 4, name: "Crate & Barrel" }
+  linkTo: (project) ->
+    url  = "/projects/#{project.id}"
+    name = @escape project.name
+    @safe "<a href='#{url}'>#{name}</a>"
+```
 
 to produce:
 
-    <a href='/projects/4'>Crate &amp; Barrel</a>
+```html
+<a href='/projects/4'>Crate &amp; Barrel</a>
+```
 
 ## The Skim asset
 
@@ -89,11 +101,15 @@ and setting Skim's `:use_asset` option to true.
 
 In Rails, this can be done by adding the following to `application.js`:
 
-    //= require skim
+```js
+//= require skim
+```
 
 And the following in an initializer:
 
-    Skim::Engine.default_options[:use_asset] = true
+```ruby
+Skim::Engine.default_options[:use_asset] = true
+```
 
 # License (MIT)
 
