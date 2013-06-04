@@ -6,7 +6,7 @@ class TestSkimCodeEscaping < TestSkim
 p = @evil_method()
 }
 
-    assert_html '<p>&lt;script&gt;do_something_evil();&lt;&#47;script&gt;</p>', source
+    assert_html '<p>&lt;script&gt;do_something_evil();&lt;/script&gt;</p>', source
   end
 
   def test_render_unsafe
@@ -14,7 +14,7 @@ p = @evil_method()
 p = "<strong>Hello World\\n, meet \\"Skim\\"</strong>."
 }
 
-    assert_html "<p>&lt;strong&gt;Hello World\n, meet \&quot;Skim\&quot;&lt;&#47;strong&gt;.</p>", source
+    assert_html "<p>&lt;strong&gt;Hello World\n, meet \&quot;Skim\&quot;&lt;/strong&gt;.</p>", source
   end
 
   def test_render_safe
@@ -31,7 +31,7 @@ p = @safe("<strong>Hello World\\n, meet \\"Skim\\"</strong>.")
 == "<p>World</p>"
 }
 
-    assert_html "&lt;p&gt;Hello&lt;&#47;p&gt;<p>World</p>", source
+    assert_html "&lt;p&gt;Hello&lt;/p&gt;<p>World</p>", source
   end
 
   def test_render_with_disable_escape_true

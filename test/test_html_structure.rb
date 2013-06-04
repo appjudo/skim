@@ -15,7 +15,6 @@ html
   end
 
   def test_html_tag_with_text_and_empty_line
-    # Keep the trailing space behind "body "!
     source = %q{
 p Hello
 
@@ -74,10 +73,21 @@ h1#title This is my title
   def test_render_with_overwritten_default_tag
     source = %q{
 #notice.hello.world
+   = @hello_world()
+ }
+
+    assert_html '<section class="hello world" id="notice">Hello World from @env</section>', source, :default_tag => 'section'
+  end
+
+  def test_render_with_custom_shortcut
+    source = %q{
+#notice.hello.world@test
+  = @hello_world()
+@abc
   = @hello_world()
 }
 
-    assert_html '<section class="hello world" id="notice">Hello World from @env</section>', source, :default_tag => 'section'
+    assert_html '<div class="hello world" id="notice" role="test">Hello World from @env</div><section role="abc">Hello World from @env</section>', source, :shortcut => {'#' => {:attr => 'id'}, '.' => {:attr => 'class'}, '@' => {:tag => 'section', :attr => 'role'}}
   end
 
   def test_render_with_text_block
@@ -215,7 +225,7 @@ p class='underscored_class_name' = @output_number()
 }
 
     assert_html '<p class="underscored_class_name">1337</p>', source
- end
+  end
 
   def test_nonstandard_attributes
     source = %q{
@@ -271,24 +281,6 @@ p(id="marvin" class="martian" data-info="Illudium Q-36")= @output_number()
 }
 
     assert_html '<p class="martian" data-info="Illudium Q-36" id="marvin">1337</p>', source
-  end
-
-  def test_static_empty_attribute
-    source = %q{
-p(id="marvin" class="" data-info="Illudium Q-36")= @output_number()
-}
-
-    assert_html '<p class="" data-info="Illudium Q-36" id="marvin">1337</p>', source
-  end
-
-  def test_dynamic_empty_attribute
-    skip "pending"
-
-    source = %q{
-p(id="marvin" class=null other_empty=("") data-info="Illudium Q-36")= @output_number()
-}
-
-    assert_html '<p data-info="Illudium Q-36" id="marvin">1337</p>', source
   end
 
   def test_closed_tag
@@ -354,7 +346,7 @@ p World
   def test_render_with_html_conditional_and_method_output
     source = %q{
 /[ if IE ]
- = @message 'hello'
+ = @message('hello')
 }
 
     assert_html "<!--[if IE]>hello<![endif]-->", source
@@ -366,7 +358,7 @@ p<id="marvin"
 class="martian"
  data-info="Illudium Q-36"> = @output_number()
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<p class="martian" data-info="Illudium Q-36" id="marvin">1337</p>', str
     end
@@ -378,7 +370,7 @@ p<id="marvin"
   class="martian"
  data-info="Illudium Q-36"> THE space modulator
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<p class="martian" data-info="Illudium Q-36" id="marvin">THE space modulator</p>', str
     end
@@ -391,7 +383,7 @@ p<id="marvin"
 data-info="Illudium Q-36">
   | THE space modulator
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<p class="martian" data-info="Illudium Q-36" id="marvin">THE space modulator</p>', str
     end
@@ -404,7 +396,7 @@ p<id=@id_helper()
   data-info="Illudium Q-36">
   | THE space modulator
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<p class="martian" data-info="Illudium Q-36" id="notice">THE space modulator</p>', str
     end
@@ -418,7 +410,7 @@ p<id=@id_helper()
   span.emphasis THE
   |  space modulator
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<p class="martian" data-info="Illudium Q-36" id="notice"><span class="emphasis">THE</span> space modulator</p>', str
     end
@@ -431,7 +423,7 @@ li< id="myid"
 data-info="myinfo">
   a href="link" My Link
 }
-    Slim::Parser::DELIMITERS.each do |k,v|
+    Slim::Parser::DELIMS.each do |k,v|
       str = source.sub('<',k).sub('>',v)
       assert_html '<li class="myclass" data-info="myinfo" id="myid"><a href="link">My Link</a></li>', str
     end
@@ -470,4 +462,17 @@ input[value=@succ_x()]
     assert_html %{<input value="1" /><input value="2" />}, source
   end
 
+  def test_html_line_indicator
+    source = %q{
+<html>
+  head
+    meta name="keywords" content=@hello_world()
+  - if true
+    <p>#{@hello_world()}</p>
+      span = @hello_world()
+</html>
+    }
+
+    assert_html '<html><head><meta content="Hello World from @env" name="keywords" /></head><p>Hello World from @env</p><span>Hello World from @env</span></html>', source
+  end
 end

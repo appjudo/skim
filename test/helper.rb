@@ -4,14 +4,6 @@ require "minitest/reporters"
 require "skim"
 require "coffee_script"
 
-MiniTest::Unit.runner = MiniTest::SuiteRunner.new
-MiniTest::Unit.runner.reporters <<
-  if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
-    MiniTest::Reporters::RubyMineReporter.new
-  else
-    MiniTest::Reporters::ProgressReporter.new
-  end
-
 MiniTest::Unit.autorun
 
 class TestSkim < MiniTest::Unit::TestCase
@@ -24,13 +16,13 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def context(options)
-    case context = options[:context]
-      when String
-        context
-      when Hash
-        MultiJson.encode(context)
-      else
-        "new Context()"
+    case context = options.delete(:context)
+    when String
+      context
+    when Hash
+      MultiJson.encode(context)
+    else
+      "new Context()"
     end
   end
 
@@ -40,6 +32,7 @@ class TestSkim < MiniTest::Unit::TestCase
 
   def evaluate(source, options = {})
     require "execjs"
+
     code = [
       @context,
       "var context  = #{context(options)}",
@@ -49,6 +42,7 @@ class TestSkim < MiniTest::Unit::TestCase
     if Skim::Engine.default_options[:use_asset]
       code.unshift CoffeeScript.compile(Skim::Template.skim_src)
     end
+
     context = ExecJS.compile(code.join(";"))
     context.call("evaluate")
   end

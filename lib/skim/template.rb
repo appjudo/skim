@@ -3,15 +3,18 @@ module Skim
 
   class Template
     def coffee_script_src
-      engine = self.class.build_engine({
+
+      engine = Engine.new(options.merge({
         :streaming => false, # Overwrite option: No streaming support in Tilt
         :file => eval_file,
-        :indent => 2 }, options)
-      <<SRC
+        :indent => 2
+      }))
+      src = engine.call(data)
+<<-SRC
 return (context = {}) ->
   #{self.class.skim_src unless engine.options[:use_asset]}
   Skim.withContext.call {}, context, ->
-#{engine.call(data)}
+#{src}
 SRC
     end
 
