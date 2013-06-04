@@ -1,7 +1,11 @@
+require "coffee-script"
+
 module Skim
   Template = Temple::Templates::Tilt(Skim::Engine, :register_as => :skim)
 
   class Template
+    self.default_mime_type = "application/javascript"
+
     def coffee_script_src
 
       engine = Engine.new(options.merge({
@@ -11,8 +15,8 @@ module Skim
       }))
       src = engine.call(data)
 <<-SRC
+#{self.class.skim_src unless engine.options[:use_asset]}
 return (context = {}) ->
-  #{self.class.skim_src unless engine.options[:use_asset]}
   Skim.withContext.call {}, context, ->
 #{src}
 SRC
