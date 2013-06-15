@@ -22,6 +22,17 @@ this.Skim =
       result.skimSafe = true
       result
 
+    context.isArray = Array.isArray || ( value ) -> return {}.toString.call( value ) is '[object Array]'
+
+    context.flatten = flatten = (array) ->
+      flattened = []
+      for element in array
+        if element instanceof Array
+          flattened = flattened.concat flatten element
+        else
+          flattened.push element
+      flattened
+
     context.escape ||= @escape || (string) ->
       return '' unless string?
       return string if string.skimSafe
@@ -30,6 +41,5 @@ this.Skim =
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-        .replace(/\//g,'&#47;')
 
     block.call(context)

@@ -3,11 +3,10 @@ require "multi_json"
 module Temple
   module CoffeeScript
     class Generator < Temple::Generator
-      default_options[:indent] = 0
+      define_options :indent => 0
 
       def call(exp)
         @indent = options[:indent]
-
         compile [:multi,
                  [:code, "#{buffer} = []"],
                  exp,

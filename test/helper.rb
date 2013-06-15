@@ -1,7 +1,6 @@
 require "rubygems"
 require "minitest/unit"
 require "minitest/reporters"
-require "temple"; Temple::Filter # Trigger #13
 require "skim"
 require "coffee_script"
 require "execjs"
@@ -28,7 +27,7 @@ class TestSkim < MiniTest::Unit::TestCase
   end
 
   def context(options)
-    case context = options[:context]
+    case context = options.delete(:context)
       when String
         context
       when Hash
@@ -52,6 +51,7 @@ class TestSkim < MiniTest::Unit::TestCase
     if Skim::Engine.default_options[:use_asset]
       code.unshift skim_source
     end
+
     context = ExecJS.compile(code.join(";"))
     context.call("evaluate")
   end

@@ -17,8 +17,7 @@ Sprockets-based asset pipeline.}
   gem.require_paths = ["lib"]
   gem.version       = Skim::VERSION
 
-  gem.add_dependency "slim", "<= 1.2.2"
-  gem.add_dependency "temple", "<= 0.4.1"
+  gem.add_dependency "slim", ">= 2.0.0"
   gem.add_dependency "coffee-script"
   gem.add_dependency "coffee-script-source", ">= 1.2.0"
   gem.add_dependency "multi_json"
@@ -27,6 +26,5 @@ Sprockets-based asset pipeline.}
   gem.add_development_dependency "rake"
   gem.add_development_dependency "execjs"
   gem.add_development_dependency "minitest-reporters", "~> 0.10"
-  gem.add_development_dependency "therubyracer"
   gem.add_development_dependency "libv8", "3.11.8.3"
 end
