@@ -28,12 +28,12 @@ class TestSkim < MiniTest::Unit::TestCase
 
   def context(options)
     case context = options.delete(:context)
-    when String
-      context
-    when Hash
-      MultiJson.encode(context)
-    else
-      "new Context()"
+      when String
+        context
+      when Hash
+        MultiJson.encode(context)
+      else
+        "new Context()"
     end
   end
 
