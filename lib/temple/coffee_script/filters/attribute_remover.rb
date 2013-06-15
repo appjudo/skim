@@ -5,11 +5,6 @@ module Temple
 
       define_options :remove_empty_attrs => %w(id class)
 
-      # def on_html_attrs(*attrs)
-      #   [:multi, *(options[:remove_empty_attrs] ?
-      #              attrs.map {|attr| compile(attr) } : attrs)]
-      # end
-
       def on_html_attr(name, value)
         return super unless options[:remove_empty_attrs].include?(name.to_s)
 
