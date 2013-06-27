@@ -1,5 +1,10 @@
 # master
 
+# 0.9.0
+
+* Now uses/requires slim 2.0.0
+* Now requires Ruby 1.9.3+
+
 # 0.8.6
 
 * Restore compatibility with slim 1.2.2
