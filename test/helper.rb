@@ -31,7 +31,7 @@ class TestSkim < MiniTest::Unit::TestCase
       when String
         context
       when Hash
-        MultiJson.encode(context)
+        JSON.dump(context)
       else
         "new Context()"
     end

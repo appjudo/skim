@@ -1,4 +1,4 @@
-require "multi_json"
+require "json"
 
 module Temple
   module CoffeeScript
@@ -18,7 +18,7 @@ module Temple
       end
 
       def on_static(text)
-        concat(MultiJson.encode(text))
+        concat(JSON.generate(text, :quirks_mode => true))
       end
 
       def on_dynamic(code)
