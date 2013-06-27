@@ -17,7 +17,7 @@ Sprockets-based asset pipeline.}
   gem.require_paths = ["lib"]
   gem.version       = Skim::VERSION
 
-  gem.add_dependency "slim", ">= 2.0.0"
+  gem.add_dependency "slim", "~> 2.0.0"
   gem.add_dependency "coffee-script"
   gem.add_dependency "coffee-script-source", ">= 1.2.0"
   gem.add_dependency "sprockets"
