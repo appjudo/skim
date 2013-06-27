@@ -3,7 +3,7 @@ module Temple
     class AttributeMerger < Filter
       include Temple::HTML::Dispatcher
 
-      default_options[:attr_delimiter] = {'id' => '_', 'class' => ' '}
+      define_options :merge_attrs => {'id' => '_', 'class' => ' '}
 
       def on_html_attrs(*attrs)
         names = []
@@ -12,7 +12,7 @@ module Temple
         attrs.each do |html, attr, name, value|
           raise(InvalidExpression, 'Attribute is not a html attr') if html != :html || attr != :attr
           name = name.to_s
-          if delimiter = options[:attr_delimiter][name]
+          if delimiter = options[:merge_attrs][name]
             if current = result[name]
               current << [:static, delimiter] << value
             else

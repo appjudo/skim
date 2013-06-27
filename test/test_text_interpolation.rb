@@ -40,9 +40,10 @@ p #{@hello_world()}
   def test_escape_interpolation
     source = %q{
 p \\#{@hello_world()}
+p text1 \\#{@hello_world()} text2
 }
 
-    assert_html '<p>#{@hello_world()}</p>', source
+    assert_html '<p>#{@hello_world()}</p><p>text1 #{@hello_world()} text2</p>', source
   end
 
   def test_complex_interpolation
@@ -58,7 +59,7 @@ p Message: #{@message('hello', "user #{@output_number()}")}
 | #{@evil_method()}
 }
 
-    assert_html '&lt;script&gt;do_something_evil();&lt;&#47;script&gt;', source
+    assert_html '&lt;script&gt;do_something_evil();&lt;/script&gt;', source
   end
 
   def test_interpolation_without_escaping
@@ -73,6 +74,6 @@ p Message: #{@message('hello', "user #{@output_number()}")}
     source = %q{
 | #{(@evil_method())}
 }
-    assert_html '&lt;script&gt;do_something_evil();&lt;&#47;script&gt;', source
+    assert_html '&lt;script&gt;do_something_evil();&lt;/script&gt;', source
   end
 end

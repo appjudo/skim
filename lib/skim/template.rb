@@ -7,15 +7,18 @@ module Skim
     self.default_mime_type = "application/javascript"
 
     def coffee_script_src
-      engine = self.class.build_engine({
+
+      engine = Engine.new(options.merge({
         :streaming => false, # Overwrite option: No streaming support in Tilt
         :file => eval_file,
-        :indent => 2 }, options)
-      <<SRC
+        :indent => 2
+      }))
+      src = engine.call(data)
+<<-SRC
 #{self.class.skim_src unless engine.options[:use_asset]}
 return (context = {}) ->
   Skim.withContext.call {}, context, ->
-#{engine.call(data)}
+#{src}
 SRC
     end
 
