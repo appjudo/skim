@@ -22,7 +22,7 @@ module Skim
     use Slim::Splat::Filter, :merge_attrs, :attr_quote, :sort_attrs, :default_tag, :hyphen_attrs
     use Skim::Controls, :disable_capture
     html :AttributeSorter, :sort_attrs
-    html :AttributeMerger, :merge_attrs
+    use Temple::CoffeeScript::AttributeMerger, :merge_attrs
     use Skim::CodeAttributes, :merge_attrs
     use(:AttributeRemover) { Temple::CoffeeScript::AttributeRemover.new(:remove_empty_attrs => options[:merge_attrs].keys)}
     html :Pretty, :format, :attr_quote, :pretty, :indent, :js_wrapper
