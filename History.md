@@ -1,5 +1,9 @@
 # master
 
+# 0.9.1
+
+* Fix 'SyntaxError: unexpected LOGIC' bug (#30)
+
 # 0.9.0
 
 * Now uses/requires slim 2.0.0
