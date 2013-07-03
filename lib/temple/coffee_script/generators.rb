@@ -7,10 +7,7 @@ module Temple
 
       def call(exp)
         @indent = options[:indent]
-        compile [:multi,
-                 [:code, "#{buffer} = []"],
-                 exp,
-                 [:code, "#{buffer}.join('')"]]
+        compile [:multi, [:code, "#{buffer} = '';"], exp]
       end
 
       def on_multi(*exp)
@@ -41,7 +38,7 @@ module Temple
       end
 
       def concat(str)
-        indent("#{buffer}.push(#{str})")
+        indent "#{buffer} += #{str};"
       end
 
       def indent(str, indent = @indent)
