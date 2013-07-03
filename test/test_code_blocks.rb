@@ -66,6 +66,15 @@ p
     assert_html '<p>Hey!Hey!Hey!</p>', source
   end
 
+  def test_render_with_control_code_for_in_loop_without_parent
+    source = %q{
+- for i in [0..2]
+  p Hey!
+}
+
+    assert_html '<p>Hey!</p><p>Hey!</p><p>Hey!</p>', source
+  end
+
   def test_render_with_control_code_for_own_of_loop
     source = %q{
 p
