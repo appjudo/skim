@@ -7,7 +7,7 @@ module Temple
 
       def call(exp)
         @indent = options[:indent]
-        compile [:multi, [:code, "#{buffer} = ''"], exp]
+        compile [:multi, [:code, "#{buffer} = ''"], exp, [:code, "#{buffer}"]]
       end
 
       def on_multi(*exp)
