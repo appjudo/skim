@@ -33,13 +33,20 @@ this.Skim =
           flattened.push element
       flattened
 
+    context.escapeEntityMap = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;'
+    }
+
+    context.escapeRegex = new RegExp('[&<>"]', 'g')
+
     context.escape ||= @escape || (string) ->
       return '' unless string?
       return string if string.skimSafe
-      @safe (''+string)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
+      @safe((''+string).replace @escapeRegex, (match) ->
+        context.escapeEntityMap[match]
+      )
 
     block.call(context)
