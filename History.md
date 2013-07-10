@@ -1,5 +1,9 @@
 # master
 
+# 0.9.2
+
+* Performance improvements
+
 # 0.9.1
 
 * Fix 'SyntaxError: unexpected LOGIC' bug (#30)
