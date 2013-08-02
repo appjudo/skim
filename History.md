@@ -1,5 +1,9 @@
 # master
 
+# 0.9.3
+
+* Manually append assets path if Rails not available (#33)
+
 # 0.9.2
 
 * Performance improvements
