@@ -38,10 +38,10 @@ this.Skim =
       if string.skimSafe or not /[&<>\"]/.test(string)
         return string
 
-      @safe ('' + string)
+      @safe(('' + string)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
+        .replace(/"/g, '&quot;'))
 
     block.call(context)
