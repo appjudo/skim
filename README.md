@@ -7,15 +7,8 @@ Sprockets-based asset pipeline.
 
 # Usage
 
-`gem install skim`, or add `skim` to your `Gemfile` in the `:assets` group:
-
-```ruby
-group :assets do
-  gem 'skim'
-end
-```
-
-Create template files with the extension `.jst.skim`. For example, `test.jst.skim`:
+`gem install skim`, or add `skim` to your `Gemfile`. Create template files with the extension
+`.jst.skim`. For example, `test.jst.skim`:
 
 ```jade
 p Hello #{@world}!
