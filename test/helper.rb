@@ -1,9 +1,10 @@
 require "rubygems"
-require "minitest/unit"
+require "minitest/autorun"
 require "minitest/reporters"
 require "skim"
 require "coffee_script"
 require "execjs"
+require "pry"
 
 if ENV["RM_INFO"] || ENV["TEAMCITY_VERSION"]
   MiniTest::Reporters.use! MiniTest::Reporters::RubyMineReporter.new
@@ -11,9 +12,9 @@ else
   MiniTest::Reporters.use! MiniTest::Reporters::ProgressReporter.new
 end
 
-MiniTest::Unit.autorun
+Minitest.autorun
 
-class TestSkim < MiniTest::Unit::TestCase
+class TestSkim < Minitest::Test
   def context_source
     File.read(File.expand_path("../context.coffee", __FILE__))
   end
@@ -48,7 +49,7 @@ class TestSkim < MiniTest::Unit::TestCase
       "var template = #{compile(source, options)}",
       "var evaluate = function () { return template(context); }"
     ]
-    if Skim::Engine.default_options[:use_asset]
+    if Skim::Engine.options[:use_asset]
       code.unshift skim_source
     end
 
@@ -68,10 +69,10 @@ class TestSkim < MiniTest::Unit::TestCase
     yield
 
     begin
-      Skim::Engine.default_options[:use_asset] = true
+      Skim::Engine.options[:use_asset] = true
       yield
     ensure
-      Skim::Engine.default_options[:use_asset] = false
+      Skim::Engine.options[:use_asset] = false
     end
   end
 

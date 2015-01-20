@@ -11,11 +11,11 @@ class TestSkimTemplate < TestSkim
   end
 
   def test_sprockets_integration_with_asset
-    Skim::Engine.default_options[:use_asset] = true
+    Skim::Engine.options[:use_asset] = true
     compiled = ExecJS.compile(skim_source + ";" + asset_source('test.js'))
     assert_equal "<p>Hello World, meet Skim</p>", compiled.eval("JST.test({name: 'Skim'})")
   ensure
-    Skim::Engine.default_options[:use_asset] = false
+    Skim::Engine.options[:use_asset] = false
   end
 
   def test_sprockets_require_directive
