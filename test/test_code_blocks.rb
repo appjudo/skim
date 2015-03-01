@@ -4,8 +4,7 @@ class TestSkimCodeBlocks < TestSkim
   def test_render_with_output_code_block
     source = %q{
 p
-  = @callback "Hello Ruby!", ->
-    | Hello from within a block!
+  = @callback "Hello Ruby!", -> 'Hello from within a block!'
 }
 
     assert_html '<p>Hello Ruby! Hello from within a block! Hello Ruby!</p>', source
@@ -14,8 +13,7 @@ p
   def test_render_with_output_code_within_block
     source = %q{
 p
-  = @callback "Hello Ruby!", =>
-    = @callback "Hello from within a block!"
+  = @callback "Hello Ruby!", => @callback "Hello from within a block!"
 }
 
     assert_html '<p>Hello Ruby! Hello from within a block! Hello Ruby!</p>', source
@@ -24,9 +22,7 @@ p
   def test_render_with_output_code_within_block_2
     source = %q{
 p
-  = @callback "Hello Ruby!", =>
-    = @callback "Hello from within a block!", =>
-      = @callback "And another one!"
+  = @callback "Hello Ruby!", => @callback "Hello from within a block!", => @callback "And another one!"
 }
 
     assert_html '<p>Hello Ruby! Hello from within a block! And another one! Hello from within a block! Hello Ruby!</p>', source
@@ -35,9 +31,7 @@ p
   def test_output_block_with_arguments
     source = %q{
 p
-  = @define_macro 'person', (first_name, last_name) =>
-    .first_name = first_name
-    .last_name = last_name
+  = @define_macro 'person', (first_name, last_name) => "<div class=\"first_name\">#{first_name}</div><div class=\"last_name\">#{last_name}</div>"
   == @call_macro 'person', 'John', 'Doe'
   == @call_macro 'person', 'Max', 'Mustermann'
 }
@@ -87,9 +81,7 @@ p
 
   def test_captured_code_block_with_conditional
     source = %q{
-= @callback "Hello Ruby!", ->
-  - if true
-    | Hello from within a block!
+= @callback "Hello Ruby!", -> 'Hello from within a block!' if true
 }
 
     assert_html 'Hello Ruby! Hello from within a block! Hello Ruby!', source
