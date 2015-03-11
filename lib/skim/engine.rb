@@ -16,18 +16,18 @@ module Skim
 
     filter :Encoding, :encoding
     filter :RemoveBOM
-    use Slim::Parser, :file, :tabsize, :shortcut, :default_tag
-    use Slim::Embedded, :enable_engines, :disable_engines, :pretty
+		use Slim::Parser, {:default_tag => 'div'}
+    use Slim::Embedded, {:pretty => false}
     use Skim::Interpolation
-    use Slim::Splat::Filter, :merge_attrs, :attr_quote, :sort_attrs, :default_tag, :hyphen_attrs
+    use Slim::Splat::Filter, {:merge_attrs => {'class' => ' '}, :attr_quote => '"', :sort_attrs => true, :default_tag => 'div'}
     use Skim::Controls, :disable_capture
     html :AttributeSorter, :sort_attrs
     use Temple::CoffeeScript::AttributeMerger, :merge_attrs
     use Skim::CodeAttributes, :merge_attrs
     use(:AttributeRemover) { Temple::CoffeeScript::AttributeRemover.new(:remove_empty_attrs => options[:merge_attrs].keys)}
-    html :Pretty, :format, :attr_quote, :pretty, :indent, :js_wrapper
-    use Temple::HTML::Fast, :format, :attr_quote
-    use Temple::CoffeeScript::Filters::Escapable, :use_html_safe, :disable_escape
+    html :Pretty, {:attr_quote => '"', :pretty => false}
+    use Temple::HTML::Fast, {:attr_quote => '"'}
+    use Temple::CoffeeScript::Filters::Escapable, {} 
     use Temple::CoffeeScript::Filters::ControlFlow
     filter :MultiFlattener
     use(:Optimizer) { Temple::Filters::StaticMerger.new }
@@ -36,3 +36,4 @@ module Skim
     end
   end
 end
+
