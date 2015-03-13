@@ -12,7 +12,11 @@ else
 end
 
 MiniTest::Unit.autorun
-
+Slim::Parser::DELIMS = {
+      '(' => ')',
+      '[' => ']',
+      '{' => '}',
+    }.freeze
 class TestSkim < MiniTest::Unit::TestCase
   def context_source
     File.read(File.expand_path("../context.coffee", __FILE__))
@@ -48,7 +52,7 @@ class TestSkim < MiniTest::Unit::TestCase
       "var template = #{compile(source, options)}",
       "var evaluate = function () { return template(context); }"
     ]
-    if Skim::Engine.default_options[:use_asset]
+    if Skim::Engine.options[:use_asset]
       code.unshift skim_source
     end
 
@@ -68,10 +72,10 @@ class TestSkim < MiniTest::Unit::TestCase
     yield
 
     begin
-      Skim::Engine.default_options[:use_asset] = true
+      Skim::Engine.options[:use_asset] = true
       yield
     ensure
-      Skim::Engine.default_options[:use_asset] = false
+      Skim::Engine.options[:use_asset] = false
     end
   end
 
