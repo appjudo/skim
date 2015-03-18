@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestAttributeMerger < MiniTest::Unit::TestCase
+class TestAttributeMerger < Minitest::Test
   def call(expr)
     Temple::CoffeeScript::AttributeMerger.new.call(expr)
   end

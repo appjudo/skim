@@ -38,8 +38,7 @@ p class="#{x}" test #{content}
 
   def test_html_nested_escaping
     source = %q{
-= @callback "Test", ->
-  | escaped &
+= @callback "Test", -> 'escaped &'
 }
     with_and_without_asset do
       assert_html 'Test escaped &amp; Test', source
