@@ -20,7 +20,7 @@ Sprockets-based asset pipeline.}
   gem.add_dependency "slim", '>= 3.0'
   gem.add_dependency "coffee-script"
   gem.add_dependency "coffee-script-source", ">= 1.2.0"
-  gem.add_dependency "sprockets", ">= 2", "<= 3.0.0.beta.8"
+  gem.add_dependency "sprockets", ">= 2", "<= 3.0.0.rc1"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "pry"
