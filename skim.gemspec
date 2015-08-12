@@ -27,5 +27,5 @@ Sprockets-based asset pipeline.}
   gem.add_development_dependency "execjs"
   gem.add_development_dependency "minitest-reporters"
   gem.add_development_dependency "therubyracer"
-  gem.add_development_dependency "libv8"
+  gem.add_development_dependency "libv8", "~> 3.16.14.0"
 end
