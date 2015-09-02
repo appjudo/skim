@@ -1,5 +1,9 @@
 # master
 
+# 0.10.0
+
+* Compatibility with Rails 4.2, Slim 3, and Sprockets 3
+
 # 0.9.3
 
 * Manually append assets path if Rails not available (#33)
