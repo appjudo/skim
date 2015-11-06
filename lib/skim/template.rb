@@ -1,38 +1,42 @@
 require "coffee-script"
 
 module Skim
-  Template = Temple::Templates::Tilt(Skim::Engine, :register_as => :skim)
+  module TemplateInjector
+    def self.inject(klass)
+      klass.class_eval do
+        self.default_mime_type = "application/javascript"
 
-  class Template
-    self.default_mime_type = "application/javascript"
-
-    def coffee_script_src
-
-      engine = Engine.new(options.merge({
-        :streaming => false, # Overwrite option: No streaming support in Tilt
-        :file => eval_file,
-        :indent => 2
-      }))
-      src = engine.call(data)
-<<-SRC
+        def coffee_script_src
+          engine = Engine.new(options.merge({
+            :streaming => false, # Overwrite option: No streaming support in Tilt
+            :file => eval_file,
+            :indent => 2
+          }))
+          src = engine.call(data)
+          <<-SRC
 #{self.class.skim_src unless engine.options[:use_asset]}
 return (context = {}) ->
   Skim.withContext.call {}, context, ->
 #{src}
 SRC
-    end
+        end
 
-    def prepare
-      @src = CoffeeScript.compile(coffee_script_src)
-    end
+        def prepare
+          @src = CoffeeScript.compile(coffee_script_src)
+        end
 
-    def evaluate(scope, locals, &block)
-      precompiled_template
-    end
+        def evaluate(scope, locals, &block)
+          precompiled_template
+        end
 
-    def self.skim_src
-      @@skim_src ||=
-        File.read(File.expand_path("../../../vendor/assets/javascripts/skim.js.coffee", __FILE__))
+        def self.skim_src
+          @@skim_src ||=
+            File.read(File.expand_path("../../../vendor/assets/javascripts/skim.js.coffee", __FILE__))
+        end
+      end
     end
   end
+
+  Template = Temple::Templates::Tilt(Skim::Engine, :register_as => :skim)
+  TemplateInjector.inject(Template)
 end

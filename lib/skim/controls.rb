@@ -3,7 +3,8 @@ module Skim
     def on_slim_control(code, content)
       [:multi,
         [:code, code],
-        [:indent, compile(content)]]
+        [:indent, compile(content)]
+      ]
     end
   end
 end
