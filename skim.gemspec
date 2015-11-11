@@ -2,8 +2,8 @@
 require File.expand_path('../lib/skim/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["John Firebaugh"]
-  gem.email         = ["john.firebaugh@gmail.com"]
+  gem.authors       = ["Shawn Van Ittersum"]
+  gem.email         = ["svicalifornia@gmail.com"]
   gem.description   = %q{Fat-free client-side templates with Slim and CoffeeScript}
   gem.summary       = %q{Take the fat out of your client-side templates with Skim. Skim is the Slim templating engine
 with embedded CoffeeScript. It compiles to JavaScript templates (.jst), which can then be served by Rails or any other

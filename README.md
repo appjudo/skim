@@ -1,4 +1,4 @@
-Skim [ ![Build status](https://travis-ci.org/jfirebaugh/skim.png) ](https://travis-ci.org/jfirebaugh/skim)
+Skim [ ![Build status](https://travis-ci.org/svicalifornia/skim.png) ](https://travis-ci.org/svicalifornia/skim)
 ====
 
 Take the fat out of your client-side templates with Skim. Skim is the [Slim](http://slim-lang.com/) templating engine
@@ -106,7 +106,7 @@ Skim::Engine.default_options[:use_asset] = true
 
 # License (MIT)
 
-Copyright (c) 2012 John Firebaugh
+Copyright (c) 2012 John Firebaugh, (c) 2015 Shawn Van Ittersum.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -129,6 +129,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Special Thanks
 
+* John Firebaugh, for creating Skim
 * Andrew Stone, for Slim
 * Magnus Holm, for Temple
-* Daniel Mendler, for maintenance of both
+* Daniel Mendler, for maintenance of Slim and Temple
