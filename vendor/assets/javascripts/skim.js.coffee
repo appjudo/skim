@@ -28,6 +28,9 @@ this.Skim =
         currentNode = oldNode
       null
 
+    context.skimInsertNodes = (elements) ->
+      currentNode.push(element) for element in elements
+
     context.skimText = (str) ->
       currentNode.push str
       null
