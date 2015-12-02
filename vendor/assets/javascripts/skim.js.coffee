@@ -70,7 +70,7 @@ this.Skim =
       flattened
 
     context.escape ||= @escape || (string) ->
-      return '' unless string?
+      return null unless string?
       if string.skimSafe or not /[&<>\"]/.test(string)
         return string
 
