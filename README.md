@@ -1,4 +1,4 @@
-Skim [ ![Build status](https://travis-ci.org/svicalifornia/skim.png) ](https://travis-ci.org/svicalifornia/skim)
+Skim [ ![Build status](https://travis-ci.org/appjudo/skim.png) ](https://travis-ci.org/appjudo/skim)
 ====
 
 Take the fat out of your client-side templates with Skim. Skim is the [Slim](http://slim-lang.com/) templating engine
@@ -106,7 +106,7 @@ Skim::Engine.default_options[:use_asset] = true
 
 # License (MIT)
 
-Copyright (c) 2012 John Firebaugh, (c) 2015 Shawn Van Ittersum.
+Copyright (c) 2012 John Firebaugh, (c) 2015 AppJudo Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
