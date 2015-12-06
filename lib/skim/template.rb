@@ -17,7 +17,7 @@ module Skim
 <<-SRC
 #{self.class.skim_src unless engine.options[:use_asset]}
 return (context = {}) ->
-  Skim.withContext.call {}, context, ->
+  (context.Skim || Skim).withContext.call {}, context, ->
 #{src}
 SRC
     end

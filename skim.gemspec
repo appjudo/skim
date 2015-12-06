@@ -12,6 +12,7 @@ Sprockets-based asset pipeline.}
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
+  gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "skim"
   gem.require_paths = ["lib"]
