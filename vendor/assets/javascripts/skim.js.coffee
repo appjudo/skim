@@ -18,8 +18,9 @@ this.Skim =
 
     currentNode = nodes = []
 
-    context.skimElement = (name, attrs, children = null) ->
-      node = [name, attrs]
+    context.skimElement = (type, attrs, children = null) ->
+      throw new Error('Element type missing') unless type
+      node = [type, attrs]
       currentNode.push node
       if children
         oldNode = currentNode
@@ -29,7 +30,14 @@ this.Skim =
       null
 
     context.skimInsertNodes = (elements) ->
-      currentNode.push(element) for element in elements
+      unless elements instanceof Array
+        elements = [elements]
+      for element in elements
+        throw new Error('Element type missing') unless element.type
+        currentNode.push(element)
+
+    context.skimInsertNode = (element) ->
+      context.skimInsertNodes [element]
 
     context.skimText = (str) ->
       currentNode.push str
