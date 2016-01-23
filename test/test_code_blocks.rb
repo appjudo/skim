@@ -86,4 +86,21 @@ p
 
     assert_html 'Hello Ruby! Hello from within a block! Hello Ruby!', source
   end
+
+  def test_attribute_merger
+    source = %q{
+.hello class='ruby' Hello Ruby!
+}
+
+    assert_html '<div class="hello ruby">Hello Ruby!</div>', source
+  end
+
+  def test_attribute_merger_with_not_static_class_attr
+    source = %q{
+- class_name = 'ruby'
+.hello class=class_name Hello Ruby!
+}
+
+    assert_html '<div class="hello ruby">Hello Ruby!</div>', source
+  end
 end

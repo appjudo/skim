@@ -22,7 +22,6 @@ module Skim
     use Slim::Splat::Filter
     use Skim::Controls
     html :AttributeSorter
-    html :AttributeMerger
     use Temple::CoffeeScript::AttributeMerger
     use Skim::CodeAttributes
     use(:AttributeRemover) { Temple::CoffeeScript::AttributeRemover.new(:remove_empty_attrs => options[:merge_attrs].keys)}
