@@ -77,10 +77,10 @@ this.Skim =
           flattened.push element
       flattened
 
-    context.escape ||= @escape || (string) ->
-      return null unless string?
-      if string.skimSafe or not /[&<>\"]/.test(string)
-        return string
+    context.escape ||= @escape || (value) ->
+      return null unless value?
+      if typeof value == 'function' or value.skimSafe or not /[&<>\"]/.test(value)
+        return value
 
       @safe(('' + string)
         .replace(/&/g, '&amp;')
