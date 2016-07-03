@@ -82,7 +82,7 @@ this.Skim =
       if typeof value == 'function' or value.skimSafe or not /[&<>\"]/.test(value)
         return value
 
-      @safe(('' + string)
+      @safe(('' + value)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
