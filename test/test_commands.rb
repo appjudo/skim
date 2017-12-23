@@ -19,13 +19,13 @@ class TestSkimCommands < Minitest::Test
   def test_option_help
     out, err = exec_skim '--help'
     assert err.empty?
-    assert_match /Show this help message/, out
+    assert_match(/Show this help message/, out)
   end
 
   def test_option_version
     out, err = exec_skim '--version'
     assert err.empty?
-    assert_match /\ASkim #{Regexp.escape Skim::VERSION}$/, out
+    assert_match(/\ASkim #{Regexp.escape Skim::VERSION}$/, out)
   end
 
   def test_export
@@ -63,7 +63,7 @@ class TestSkimCommands < Minitest::Test
   def test_node_global
     prepare_common_test STATIC_TEMPLATE, '--node-global', '--assign', 'myFunction' do |out, err|
       assert err.empty?
-      assert_match /global\.Skim/, out
+      assert_match(/global\.Skim/, out)
       assert_equal "<p>Hello World!</p>", evaluate_node(out, 'global.myFunction()')
     end
   end
@@ -71,7 +71,7 @@ class TestSkimCommands < Minitest::Test
   def test_asset_only
     out, err = exec_skim '--asset-only'
     assert err.empty?
-    assert_match %r{withContext\: function}, out
+    assert_match(%r{withContext\: function}, out)
   end
 
   def test_omit_asset
@@ -85,7 +85,7 @@ class TestSkimCommands < Minitest::Test
     with_tempfile 'puts "Not in skim"', 'rb' do |lib|
       prepare_common_test STATIC_TEMPLATE, '--require', lib, stdin_file: false, file_file: false do |out, err|
         assert err.empty?
-        assert_match %r{\ANot in skim\n}, out
+        assert_match(%r{\ANot in skim\n}, out)
       end
     end
   end
@@ -93,16 +93,16 @@ class TestSkimCommands < Minitest::Test
   def test_error
     prepare_common_test INVALID_TEMPLATE, stdin_file: false do |out, err|
       assert out.empty?
-      assert_match /SyntaxError/, err
-      assert_match /Use --trace for backtrace/, err
+      assert_match(/SyntaxError/, err)
+      assert_match(/Use --trace for backtrace/, err)
     end
   end
 
   def test_trace_error
     prepare_common_test INVALID_TEMPLATE, '--trace', stdin_file: false do |out, err|
       assert out.empty?
-      assert_match /SyntaxError/, err
-      assert_match /bin\/skim/, err
+      assert_match(/SyntaxError/, err)
+      assert_match(/bin\/skim/, err)
     end
   end
 
@@ -122,7 +122,7 @@ private
 
     # case 1. $stdin → $stdout
     unless options[:stdin_stdout] == false
-      out, err = exec_skim *args, '--stdin' do |i|
+      out, err = exec_skim(*args, '--stdin') do |i|
         i.write content
       end
       yield out, err
@@ -131,7 +131,7 @@ private
     # case 2. file → $stdout
     unless options[:file_stdout] == false
       with_tempfile content do |in_file|
-        out, err = exec_skim *args, in_file
+        out, err = exec_skim(*args, in_file)
         yield out, err
       end
     end
@@ -139,7 +139,7 @@ private
     # case 3. $stdin → file
     unless options[:stdin_file] == false
       with_tempfile content do |out_file|
-        _, err = exec_skim *args, '--stdin', out_file do |i|
+        _, err = exec_skim(*args, '--stdin', out_file) do |i|
           i.write content
         end
         yield File.read(out_file), err
@@ -150,7 +150,7 @@ private
     unless options[:file_file] == false
       with_tempfile '' do |out_file|
         with_tempfile content do |in_file|
-          _, err = exec_skim *args, in_file, out_file do |i|
+          _, err = exec_skim(*args, in_file, out_file) do |i|
             i.write content
           end
           yield File.read(out_file), err
