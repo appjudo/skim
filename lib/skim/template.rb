@@ -6,6 +6,14 @@ module Skim
   class Template
     self.default_mime_type = "application/javascript"
 
+    def self.call(input)
+      source   = input[:data]
+      context  = input[:environment].context_class.new(input)
+
+      result = new { source }.render
+      context.metadata.merge(data: result)
+    end
+
     def coffee_script_src
 
       engine = Engine.new(options.merge({
