@@ -2,7 +2,12 @@
 
 # 0.11.0
 
+* Add skim command-line interface
 * Compatibility with Rails 6 and Sprockets 4
+* Fix "Syntax Error: Unexpected &" bug (#48) -- thanks to @pavelkomiagin!
+* Update README with CLI documentation and new copyright notice
+* Update LICENSE for new maintainership
+* Upgrade Travis infrastructure
 
 # 0.10.0
 
